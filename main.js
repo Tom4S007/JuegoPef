@@ -2,7 +2,7 @@ const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  pixelArt: true, // 👈 evita el suavizado
+  pixelArt: true, 
   physics: {
     default: "arcade",
     arcade: {
