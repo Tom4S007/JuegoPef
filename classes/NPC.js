@@ -9,7 +9,7 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
     this.aceptado = false;
     this.rechazado = false;
     this.enCamino = false;
-    this.contadorIncrementado = false; // 🔥 PARA CONTROLAR DUPLICADOS
+    this.contadorIncrementado = false; 
     this.puntosCamino = [];
     this.indiceCamino = 0;
     this.velocidad = 80;
@@ -64,9 +64,9 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
     }).setOrigin(0.5).setDepth(101);
     
     // Botones de respuesta
-    this.crearBoton(centerY + 10, "🔵 Aceptar amablemente", 0x00ff00, () => this.aceptar('amistosa'));
-    this.crearBoton(centerY + 50, "🟡 Aceptar con condiciones", 0xffff00, () => this.aceptar('neutral'));
-    this.crearBoton(centerY + 90, "🔴 Rechazar", 0xff0000, () => this.rechazar());
+    this.crearBoton(centerY + 10, " Aceptar amablemente", 0x00ff00, () => this.aceptar('amistosa'));
+    this.crearBoton(centerY + 50, " Aceptar con condiciones", 0xffff00, () => this.aceptar('neutral'));
+    this.crearBoton(centerY + 90, " Rechazar", 0xff0000, () => this.rechazar());
   }
 
   crearBoton(y, texto, color, callback) {
@@ -115,7 +115,7 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
   }
 
   aceptar(tipo) {
-    // 🔥 CORREGIDO: Solo verificar si ya fue aceptado, no si el contador fue incrementado
+    // Solo verificar si ya fue aceptado, no si el contador fue incrementado
     if (this.aceptado) {
       console.log("⚠️ NPC ya fue aceptado anteriormente");
       return;
@@ -134,14 +134,14 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
       duration: 500
     });
     
-    // 🔥 NOTIFICAR PRIMERO AL SISTEMA PARA INCREMENTAR CONTADOR
+    //  NOTIFICAR PRIMERO AL SISTEMA PARA INCREMENTAR CONTADOR
     this.scene.npcAceptado(this, tipo);
     
-    // 🔥 LUEGO iniciar camino al campamento
+    //  LUEGO iniciar camino al campamento
     this.iniciarCamino(this.scene.obtenerPuntosCaminoCampamento());
   }
 
-  // 🔥 NUEVO: Método para rechazar NPC
+  // Método para rechazar NPC
   rechazar() {
     this.rechazado = true;
     this.texto.setText("✗");
@@ -156,13 +156,13 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
     // Mostrar mensaje de rechazo
     this.scene.mostrarMensaje("Superviviente rechazado", 0xff0000);
     
-    // 🔥 Hacer que el NPC se vaya (camino de salida)
+    //  Hacer que el NPC se vaya (camino de salida)
     this.iniciarCaminoSalida();
     
     this.scene.npcRechazado(this);
   }
 
-  // 🔥 NUEVO: Camino para que los rechazados se vayan
+  // Camino para que los rechazados se vayan
   iniciarCaminoSalida() {
     const puntosSalida = [
       { x: this.x + 200, y: this.y - 100 },  // Se aleja hacia arriba-derecha
@@ -178,7 +178,7 @@ class NPC extends Phaser.Physics.Arcade.Sprite {
 
   moverAlSiguientePuntoSalida() {
     if (this.indiceCamino >= this.puntosCamino.length) {
-      // 🔥 Cuando llega al final, destruir el NPC
+      //  Cuando llega al final, destruir el NPC
       this.destroy();
       return;
     }
@@ -289,7 +289,7 @@ moverAlSiguientePuntoSalida() {
     if (this.graphic) this.graphic.destroy();
     if (this.texto) this.texto.destroy();
     
-    // 🔥 NOTIFICAR AL SCENE QUE EL NPC FUE DESTRUIDO
+    //  NOTIFICAR AL SCENE QUE EL NPC FUE DESTRUIDO
     if (this.scene.npcDestruido) {
       this.scene.npcDestruido(this);
     }
