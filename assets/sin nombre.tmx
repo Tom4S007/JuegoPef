@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="10" height="7" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="house-tiles" tilewidth="16" tileheight="16" tilecount="38" columns="19">
+  <image source="house-tiles.png" width="304" height="32"/>
+ </tileset>
+ <layer id="1" name="Capa de patrones 1" width="10" height="7">
+  <data encoding="csv">
+12,13,14,15,4,3,5,9,10,4,
+31,32,33,34,21,2,1,28,29,21,
+16,17,18,19,21,2,1,1,1,21,
+35,36,37,38,21,22,25,1,6,23,
+2,1,1,1,30,5,26,1,27,4,
+2,1,1,1,1,1,1,1,1,21,
+22,24,24,25,7,8,6,24,24,23
+</data>
+ </layer>
+</map>

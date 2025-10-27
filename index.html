@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Refugio del Superviviente</title>
+
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        font-family: monospace;
+        background-color: #111;
+        color: #fff;
+      }
+
+      /* Contenedor principal */
+      #container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* HUD lateral */
+      #hud {
+        width: 250px;
+        background: rgba(30, 30, 30, 0.9);
+        padding: 20px;
+        box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      #hud h2 {
+        text-align: center;
+        margin-top: 0;
+      }
+
+      #hud button {
+        background-color: #00ffcc;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        font-family: monospace;
+        cursor: pointer;
+        color: #111;
+        transition: background-color 0.3s;
+      }
+
+      #hud button:hover {
+        background-color: #00cc99;
+      }
+
+      /* Área del juego */
+      #game-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      canvas {
+        border: 2px solid #333;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="hud">
+        <h2>Refugio</h2>
+        <!-- En la sección #stats del HUD -->
+        <div id="stats">
+          <p><strong>Día:</strong> <span id="dia">1</span></p>
+          <p><strong>Gasolina:</strong> <span id="gasolina">5/30</span></p>
+          <p><strong>Comida:</strong> <span id="comida">10</span></p>
+          <p><strong>Energía:</strong> <span id="energia">100%</span></p>
+          <p><strong>Stamina:</strong> <span id="stamina">100%</span></p> <!-- 🔥 NUEVO -->
+          <p><strong>Supervivientes:</strong> <span id="supervivientes">3</span></p>
+        </div>
+        <button id="avanzarBtn">[ Avanzar Día → ]</button>
+      </div>
+
+      <div id="game-container"></div>
+    </div>
+
+    <!-- Phaser y scripts -->
+    <script src="phaser.js"></script>
+<script src="classes/Player.js"></script>
+<script src="classes/Fogata.js"></script>
+<script src="classes/TemporizadorDia.js"></script>
+<script src="classes/NPC.js"></script>
+<script src="classes/SistemaNPC.js"></script>
+<script src="classes/SistemaExamenAlien.js"></script> <!-- 🔥 ESTA LÍNEA -->
+<script src="scenes/MenuScene.js"></script>
+<script src="scenes/RefugioScene.js"></script>
+<script src="scenes/CasaScene.js"></script>
+<script src="main.js"></script>
+  </body>
+</html>
