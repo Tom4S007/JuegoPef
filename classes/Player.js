@@ -54,13 +54,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-  // 🔥 NUEVO: Consumir stamina por acciones
+  //  Consumir stamina por acciones
   consumirStamina(cantidad) {
     this.stamina = Phaser.Math.Clamp(this.stamina - cantidad, 0, this.staminaMaxima);
     return this.stamina > 0;
   }
 
-  // 🔥 NUEVO: Regenerar stamina con el tiempo
+  //  Regenerar stamina con el tiempo
   actualizarStamina(time) {
     if (time - this.ultimaActualizacionStamina > 1000) { // Cada segundo
       if (this.stamina < this.staminaMaxima) {
@@ -74,7 +74,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  // 🔥 NUEVO: Obtener multiplicador de consumo por stamina baja
+  //  Obtener multiplicador de consumo por stamina baja
   getMultiplicadorConsumo() {
     if (this.stamina >= 45) {
       return 1.0; // Consumo normal (100%)
@@ -87,7 +87,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  // 🔥 NUEVO: Verificar si puede realizar examen
+  // Verificar si puede realizar examen
   puedeRealizarExamen() {
     return this.stamina >= 25; // Necesita al menos 25% de stamina
   }
