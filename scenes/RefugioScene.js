@@ -17,11 +17,8 @@ class RefugioScene extends Phaser.Scene {
     this.supervivientes = 3;
     this.avanzando = false;
     this.gasolinaMaxima = 30;
-    
-    // 🔥 MÁS LIMPIO: Usar clase Temporizador
     this.temporizador = new TemporizadorDia(this);
     this.sistemaNPC = new SistemaNPC(this);
-    // 🔥 NUEVO: Sistema de examen alien
     this.sistemaExamen = new SistemaExamenAlien(this);
   }
 
@@ -72,14 +69,14 @@ class RefugioScene extends Phaser.Scene {
     this.fogata.setScale(3);
     this.physics.add.collider(this.player, this.fogata);
 
-    // 🔥 INICIAR TEMPORIZADOR
+    // INICIAR TEMPORIZADOR
     this.temporizador.iniciar();
     
-    // 🔥 ESCUCHAR EVENTOS DEL TEMPORIZADOR
+    //  ESCUCHAR EVENTOS DEL TEMPORIZADOR
     this.events.on('tiempoActualizado', this.actualizarBotonAvanzar, this);
     this.events.on('diaForzado', this.forzarAvanceDia, this);
 
-    // 🔥 NUEVO: Tecla para examinar NPCs (tecla E)
+    //  NUEVO: Tecla para examinar NPCs (tecla E)
     this.input.keyboard.on('keydown-E', () => {
       this.intentarExaminarNPC();
     });
@@ -101,13 +98,13 @@ class RefugioScene extends Phaser.Scene {
     document.getElementById("energia").textContent = this.energia + "%";
     document.getElementById("supervivientes").textContent = this.supervivientes;
     
-    // 🔥 NUEVO: Actualizar stamina
+    //  NUEVO: Actualizar stamina
     if (this.player) {
       document.getElementById("stamina").textContent = Math.floor(this.player.stamina) + "%";
     }
   }
 
-  // 🔥 MÁS SIMPLE: Solo maneja UI basada en eventos
+  //  MÁS SIMPLE: Solo maneja UI basada en eventos
   actualizarBotonAvanzar(datosTiempo) {
     const avanzarBtn = document.getElementById("avanzarBtn");
     
@@ -157,7 +154,7 @@ class RefugioScene extends Phaser.Scene {
         this.comida = Math.max(0, this.comida - this.supervivientes);
         this.energia = Math.max(0, this.energia - Phaser.Math.Between(3, 7));
         
-        // 🔥 NUEVO: Procesar consecuencias de aliens
+        //  Procesar consecuencias de aliens
         if (this.sistemaExamen) {
           this.sistemaExamen.procesarConsecuenciasDia();
         }
@@ -195,7 +192,7 @@ class RefugioScene extends Phaser.Scene {
     }
   }
 
-  // 🔥 MÉTODO AUXILIAR PARA MENSAJES
+  //  MÉTODO AUXILIAR PARA MENSAJES
   mostrarMensaje(texto, color = 0xffffff) {
     // Implementación básica - puedes mejorarla después
     console.log(`Mensaje: ${texto}`);
@@ -221,7 +218,7 @@ class RefugioScene extends Phaser.Scene {
     return this.sistemaNPC.obtenerPuntosCaminoCampamento();
   }
 
-  // 🔥 NUEVO: Método llamado cuando se acepta un NPC
+  // Método llamado cuando se acepta un NPC
   npcAceptado(npc, tipo) {
     console.log(`RefugioScene: NPC aceptado - Tipo: ${tipo}`);
     this.sistemaNPC.npcAceptado(npc, tipo);
@@ -231,7 +228,7 @@ class RefugioScene extends Phaser.Scene {
     this.sistemaNPC.npcRechazado(npc);
   }
 
-  // 🔥 NUEVO: Método para examinar NPCs cercanos
+  // Método para examinar NPCs cercanos
   intentarExaminarNPC() {
     const npcs = this.sistemaNPC.npcs;
     const player = this.player;
@@ -272,13 +269,13 @@ class RefugioScene extends Phaser.Scene {
     }
   }
 
-  // 🔥 LIMPIAR RECURSOS AL SALIR
+  // LIMPIAR RECURSOS AL SALIR
   shutdown() {
     if (this.temporizador) {
       this.temporizador.destruir();
     }
     
-    // 🔥 NUEVO: Limpiar evento de teclado
+    //  Limpiar evento de teclado
     this.input.keyboard.off('keydown-E');
   }
 }
