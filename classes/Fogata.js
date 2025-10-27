@@ -13,7 +13,7 @@ class Fogata extends Phaser.Physics.Arcade.Sprite {
     this.setScale(scale);
     this.play("fogata_anim");
 
-    // === LUZ SUAVE 🔥 ===
+    // === LUZ SUAVE  ===
     this.luz = scene.add.circle(x, y, 60 * scale, 0xffcc55, 0.25).setDepth(0);
 
     // Efecto de parpadeo de la luz
