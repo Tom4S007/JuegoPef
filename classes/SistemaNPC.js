@@ -89,16 +89,16 @@ class SistemaNPC {
   npcAceptado(npc, tipo) {
     console.log(`NPC aceptado con respuesta ${tipo}. ¿Es alien?: ${npc.esAlien}`);
     
-    // 🔥 CORREGIDO: Solo verificar si el contador ya fue incrementado para ESTE NPC
+    //  Solo verificar si el contador ya fue incrementado para ESTE NPC
     if (npc.contadorIncrementado) {
       console.log("⚠️ Contador ya fue incrementado para este NPC");
       return;
     }
     
-    // 🔥 INCREMENTAR CONTADOR
+    //  INCREMENTAR CONTADOR
     this.scene.supervivientes++;
     this.scene.actualizarHUD();
-    npc.contadorIncrementado = true; // 🔥 Marcar como incrementado
+    npc.contadorIncrementado = true; 
     
     // Mostrar mensaje según tipo
     switch(tipo) {
@@ -113,14 +113,13 @@ class SistemaNPC {
     console.log(`✅ Contador incrementado. Supervivientes totales: ${this.scene.supervivientes}`);
   }
 
-  // 🔥 NUEVO: Manejar NPCs rechazados
+  //  Manejar NPCs rechazados
   npcRechazado(npc) {
     console.log(`NPC rechazado. ¿Era alien?: ${npc.esAlien}`);
-    // 🔥 NO aumentar el contador de supervivientes
     this.scene.mostrarMensaje("Superviviente se fue", 0xff6666);
   }
 
-  // 🔥 NUEVO: Remover NPC de la lista cuando es destruido
+  //  Remover NPC de la lista cuando es destruido
   npcDestruido(npc) {
     const index = this.npcs.indexOf(npc);
     if (index > -1) {
