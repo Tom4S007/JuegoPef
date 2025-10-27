@@ -3,7 +3,7 @@ class SistemaExamenAlien {
     this.scene = scene;
     this.examenActivo = false;
     this.npcExaminando = null;
-    this.aliensVigilados = []; // 🔥 NUEVO: Lista de aliens bajo vigilancia
+    this.aliensVigilados = []; 
     this.aliensIgnorados = [];
   }
 
@@ -158,13 +158,13 @@ class SistemaExamenAlien {
     }).setOrigin(0.5).setDepth(201);
 
     // Botones de acción
-    this.crearBotonAlien(centerY + 20, "🔴 Expulsar del campamento", 0xff0000, () => this.expulsarAlien());
-    this.crearBotonAlien(centerY + 70, "⚠️  Mantener bajo vigilancia", 0xffff00, () => this.vigilarAlien());
-    this.crearBotonAlien(centerY + 120, "❌ Ignorar por ahora", 0x666666, () => this.ignorarAlien());
+    this.crearBotonAlien(centerY + 20, " Expulsar del campamento", 0xff0000, () => this.expulsarAlien());
+    this.crearBotonAlien(centerY + 70, "  Mantener bajo vigilancia", 0xffff00, () => this.vigilarAlien());
+    this.crearBotonAlien(centerY + 120, " Ignorar por ahora", 0x666666, () => this.ignorarAlien());
 
     // Efecto visual en el NPC alien
     this.npcExaminando.graphic.setFillStyle(0xff0000);
-    this.npcExaminando.texto.setText("👽");
+    this.npcExaminando.texto.setText("Es un alien");
   }
 
   crearBotonAlien(y, texto, color, callback) {
@@ -194,9 +194,9 @@ class SistemaExamenAlien {
     });
   }
 
-  // 🔥 NUEVO: Expulsar alien del campamento
+  // Expulsar alien del campamento
   expulsarAlien() {
-    this.scene.mostrarMensaje("🚨 ¡Alien expulsado del campamento!", 0xff0000);
+    this.scene.mostrarMensaje(" ¡Alien expulsado del campamento!", 0xff0000);
     
     // Quitar del contador de supervivientes si estaba contado
     if (this.npcExaminando.contadorIncrementado) {
@@ -213,7 +213,7 @@ class SistemaExamenAlien {
     this.examenActivo = false;
   }
 
-  // 🔥 NUEVO: Vigilar alien (consecuencias futuras)
+  //  Vigilar alien (consecuencias futuras)
   vigilarAlien() {
     this.scene.mostrarMensaje("Alien puesto bajo vigilancia...", 0xffff00);
     
@@ -227,7 +227,7 @@ class SistemaExamenAlien {
     this.examenActivo = false;
   }
 
-  // 🔥 NUEVO: Ignorar alien (riesgo alto)
+  //  Ignorar alien (riesgo alto)
   ignorarAlien() {
     this.scene.mostrarMensaje("Alien ignorado - ¡Peligro inminente!", 0xff6600);
     
@@ -279,7 +279,7 @@ class SistemaExamenAlien {
     this.procesarAliensIgnorados();
   }
 
-  // 🔥 NUEVO: Consecuencias para aliens vigilados
+  // Consecuencias para aliens vigilados
   procesarAliensVigilados() {
     if (this.aliensVigilados.length === 0) return;
 
@@ -319,7 +319,7 @@ class SistemaExamenAlien {
     this.scene.actualizarHUD();
   }
 
-  // 🔥 NUEVO: Consecuencias para aliens ignorados (ALTO RIESGO)
+  //  Consecuencias para aliens ignorados (ALTO RIESGO)
   procesarAliensIgnorados() {
     if (this.aliensIgnorados.length === 0) return;
 
@@ -327,7 +327,7 @@ class SistemaExamenAlien {
     let color = 0xff6600;
     let gasolinaRobada = 0;
 
-    // 🔥 33% de probabilidad por cada alien ignorado de perder 2 de gasolina
+    //  33% de probabilidad por cada alien ignorado de perder 2 de gasolina
     this.aliensIgnorados.forEach((alien, index) => {
       if (Phaser.Math.Between(1, 100) <= 33) {
         gasolinaRobada += 2;
@@ -355,7 +355,7 @@ class SistemaExamenAlien {
       }
     }
 
-    // 🔥 Riesgo adicional: 15% de probabilidad de evento catastrófico
+    //  Riesgo adicional: 15% de probabilidad de evento catastrófico
     if (this.aliensIgnorados.length >= 2 && Phaser.Math.Between(1, 100) <= 15) {
       this.eventoCatastrofico();
     }
@@ -363,7 +363,7 @@ class SistemaExamenAlien {
     this.scene.actualizarHUD();
   }
 
-  // 🔥 NUEVO: Evento catastrófico por múltiples aliens ignorados
+  //  Evento catastrófico por múltiples aliens ignorados
   eventoCatastrofico() {
     const eventos = [
       {
@@ -375,7 +375,7 @@ class SistemaExamenAlien {
         color: 0xff0000
       },
       {
-        mensaje: "¡INFILTRACIÓN! Los aliens ignorados convencieron a supervivientes",
+        mensaje: "¡INFILTRACIÓN! Los aliens ignorados se llevaron varios supervivientes",
         efecto: () => {
           const perdida = Phaser.Math.Between(1, 2);
           this.scene.supervivientes = Math.max(0, this.scene.supervivientes - perdida);
@@ -383,7 +383,7 @@ class SistemaExamenAlien {
         color: 0xff0000
       },
       {
-        mensaje: "¡ATAQUE COORDINADO! Múltiples aliens atacaron el campamento",
+        mensaje: "¡Gran robo! Múltiples aliens atacaron el campamento",
         efecto: () => {
           this.scene.gasolina = Math.max(0, this.scene.gasolina - 5);
           this.scene.energia = Math.max(0, this.scene.energia - 20);
@@ -398,14 +398,14 @@ class SistemaExamenAlien {
     this.scene.actualizarHUD();
   }
 
-  // 🔥 MODIFICADO: Métodos de decisión para registrar aliens
+  // Métodos de decisión para registrar aliens
   vigilarAlien() {
     this.scene.mostrarMensaje("Alien puesto bajo vigilancia...", 0xffff00);
     
     // Registrar alien en la lista de vigilados
     this.aliensVigilados.push(this.npcExaminando);
     this.npcExaminando.texto.setText("👁️");
-    this.npcExaminando.bajoVigilancia = true; // 🔥 Nueva propiedad
+    this.npcExaminando.bajoVigilancia = true; 
     
     this.limpiarInterfazAlien();
     this.examenActivo = false;
@@ -417,13 +417,13 @@ class SistemaExamenAlien {
     // Registrar alien en la lista de ignorados (ALTO RIESGO)
     this.aliensIgnorados.push(this.npcExaminando);
     this.npcExaminando.texto.setText("⚠️");
-    this.npcExaminando.ignorado = true; // 🔥 Nueva propiedad
+    this.npcExaminando.ignorado = true; 
     
     this.limpiarInterfazAlien();
     this.examenActivo = false;
   }
 
-  // 🔥 MODIFICADO: Al expulsar, remover de las listas
+  //  Al expulsar, remover de las listas
   expulsarAlien() {
     this.scene.mostrarMensaje("🚨 ¡Alien expulsado del campamento!", 0xff0000);
     
@@ -445,18 +445,18 @@ class SistemaExamenAlien {
     this.scene.actualizarHUD();
   }
 
-  // 🔥 NUEVO: Remover alien de todas las listas
+  // Remover alien de todas las listas
   removerAlienDeListas(npc) {
     this.aliensVigilados = this.aliensVigilados.filter(alien => alien !== npc);
     this.aliensIgnorados = this.aliensIgnorados.filter(alien => alien !== npc);
   }
 
-  // 🔥 NUEVO: Limpiar aliens cuando son destruidos (NPC se va)
+  // Limpiar aliens cuando son destruidos (NPC se va)
   alienDestruido(npc) {
     this.removerAlienDeListas(npc);
   }
 
-  // 🔥 NUEVO: Obtener estadísticas para debug o HUD
+  //  Obtener estadísticas para debug o HUD
   getEstadisticasAliens() {
     return {
       vigilados: this.aliensVigilados.length,
